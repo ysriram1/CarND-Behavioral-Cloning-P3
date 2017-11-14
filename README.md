@@ -44,13 +44,13 @@ The network.py file contains the code for training and saving the convolution ne
 
 #### 4. System Configuration and Dependencies
 
-** System configuration: **
+**System configuration:**
 - Intel i7 4.20GHz
 - Nvidia GTX 1070 (Tensorflow GPU was used)
 - 32 GB of RAM
 - Windows 10
 
-** Dependencies: **
+**Dependencies:**
 - Tensorflow
 - Keras
 - numpy
