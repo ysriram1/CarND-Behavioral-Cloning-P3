@@ -6,16 +6,19 @@ import matplotlib.pyplot as plt
 import random
 from sklearn.utils import shuffle
 
+# set keras backend to tensorflow
+os.environ['KERAS_BACKEND'] = 'tensorflow'
+
 # set flags
 flags = tf.app.flags
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string('home_dir',
-'/home/sriram/Desktop/tensor_flow/udacity_self_driving_car/CarND-Behavioral-Cloning-P3',
-"location of folder that contains data folder")
+'C:/Users/Sriram/Desktop/Udacity/selfdriving_car/CarND-Behavioral-Cloning-P3',
+"location of folder that contains the data folder")
 flags.DEFINE_integer('batch_size', 128, "size of each batch")
 flags.DEFINE_integer('epochs', 20, "number of epochs to run the training")
-flags.DEFINE_float('learn_rate', 0.001, "learning rate to use for training")
+flags.DEFINE_float('learn_rate', 0.0001, "learning rate to use for training")
 
 # set home directory
 os.chdir(FLAGS.home_dir)
@@ -67,7 +70,7 @@ def side_angle(angle, side, correction=0.2):
 
 # obtain data list with image location and target value
 
-with open('./data/driving_log.csv', 'r') as f:
+with open('./data3/driving_log.csv', 'r') as f:
     read_file = f.readlines()
     train_data_lst, valid_data_lst =\
      extract_image_loc_data(read_file, center=True,
@@ -129,13 +132,13 @@ model.add(Activation('relu'))
 model.add(Flatten())
 
 # fully connected 1
-model.add(Dense(100)) # a linear regression network
+model.add(Dense(500)) # a linear regression network
 
 # Dropout
-model.add(Dropout(0.5))
+model.add(Dropout(0.1))
 
 # fully connected 2
-model.add(Dense(50))
+model.add(Dense(150))
 
 # fully connected 3
 model.add(Dense(10))
@@ -153,4 +156,4 @@ model.fit_generator(generator=train_gen,
                     validation_data=valid_gen,
                     validation_steps=len(valid_data_lst)//FLAGS.batch_size)
 
-model.save('model_1_works_with_dropout.h5')
+model.save('model_2_gpu.h5')
